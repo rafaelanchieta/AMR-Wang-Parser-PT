@@ -17,18 +17,18 @@ class W_Preprocessing(object):
     def __init__(self, amr_file):
         self.name = os.path.abspath(amr_file)
         self.amr = open(amr_file, 'r')
-        self.regex_snt = r'# ::snt (.+)'
+        #self.regex_snt = r'# ::snt (.+)'
 
     def create_token_sentence(self):
         print('Creating tokenized sentences')
         sentences_file = open(self.name + '.tok', 'w')
         for snt in self.amr.readlines():
-            match = re.match(self.regex_snt, snt)
-            if match:
-                tr = str.maketrans("", "", string.punctuation)
-                s = match.group(1).translate(tr)
-                sentences_file.write(' '.join(word_tokenize(s)))
-                sentences_file.write('\n')
+            #match = re.match(self.regex_snt, snt)
+            #if match:
+            tr = str.maketrans("", "", string.punctuation)
+            s = stn.translate(tr)
+            sentences_file.write(' '.join(word_tokenize(s)))
+            sentences_file.write('\n')
         print('Done!!')
         sentences_file.close()
 
@@ -127,4 +127,4 @@ if __name__ == '__main__':
     p.create_prp_sentence()
     p.create_charniak()
     p.create_charniak_dep()
-    p.creat_tok()
+    #p.creat_tok()
