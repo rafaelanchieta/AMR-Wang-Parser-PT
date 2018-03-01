@@ -26,7 +26,7 @@ class W_Preprocessing(object):
             #match = re.match(self.regex_snt, snt)
             #if match:
             tr = str.maketrans("", "", string.punctuation)
-            s = stn.translate(tr)
+            s = snt.translate(tr)
             sentences_file.write(' '.join(word_tokenize(s)))
             sentences_file.write('\n')
         print('Done!!')

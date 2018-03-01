@@ -10,7 +10,7 @@ rm -f model_nlpnet.zip
 
 wget http://143.107.183.175:23580/models/model-pt/model-pt.m
 
-wget http://143.107.183.175:23580/modelsbllip-parser.zip
+wget http://143.107.183.175:23580/models/bllip-parser.zip
 unzip bllip-parser.zip
 rm -f bllip-parser.zip
 
