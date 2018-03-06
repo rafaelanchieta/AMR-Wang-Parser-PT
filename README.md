@@ -13,6 +13,7 @@ To download the trained models, run the following script
 ## Dependencies
 - PALAVRAS Parser (http://visl.sdu.dk/constraint_grammar.html)
 - NLTK (http://www.nltk.org/)
+- NLPNET (http://nilc.icmc.sc.usp.br/nlpnet/)
 
 ## Parsing with Pre-Trained Model (Little Prince)
 
@@ -20,7 +21,7 @@ The input data format for parsing should be raw document with one sentence per l
 
 First, run preprocessing
 ```
-./wang_preprocessing.py -f <input_sentence_file>
+python3 wang_preprocessing.py -f <input_sentence_file>
 ```
 This will give you the tokenized sentences (.tok), POS tag and name entity (.prp), and dependency structure (.charniak.parse.dep)
 
