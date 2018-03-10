@@ -11,24 +11,30 @@ from util import run_palavras,run_lxparser,run_corenlp,run_nlpnet
 
 class W_Preprocessing(object):
     """
-    Creates files for CAMR Parser
+    Creates preprocessing files for CAMR Parser
     """
 
     def __init__(self, amr_file):
         self.name = os.path.abspath(amr_file)
         self.amr = open(amr_file, 'r')
-        #self.regex_snt = r'# ::snt (.+)'
+        self.regex_snt = r'# ::snt (.+)'
 
-    def create_token_sentence(self):
+    def create_token_sentence(self, train):
         print('Creating tokenized sentences')
         sentences_file = open(self.name + '.tok', 'w')
         for snt in self.amr.readlines():
-            #match = re.match(self.regex_snt, snt)
-            #if match:
-            tr = str.maketrans("", "", string.punctuation)
-            s = snt.translate(tr)
-            sentences_file.write(' '.join(word_tokenize(s)))
-            sentences_file.write('\n')
+            if train:
+                match = re.match(self.regex_snt, snt)
+                if match:
+                    tr = str.maketrans("", "", string.punctuation)
+                    s = match.group(1).translate(tr)
+                    sentences_file.write(' '.join(word_tokenize(s)))
+                    sentences_file.write('\n')
+            else:
+                tr = str.maketrans("", "", string.punctuation)
+                s = snt.translate(tr)
+                sentences_file.write(' '.join(word_tokenize(s)))
+                sentences_file.write('\n')
         print('Done!!')
         sentences_file.close()
 
@@ -114,6 +120,7 @@ class W_Preprocessing(object):
 if __name__ == '__main__':
     argparser = argparse.ArgumentParser(description='Preprocessing CAMR')
     argparser.add_argument('-f', '--file', help='Input file', required=True)
+    argparser.add_argument('-t', '--train', choices=['train'], help='Create files for training')
     try:
         args = argparser.parse_args()
     except:
@@ -121,10 +128,15 @@ if __name__ == '__main__':
         sys.exit()
     p = W_Preprocessing(args.file)
 
+    train = False
+    if args.mode == 'train':
+        train = True
+
 
     #p = W_Preprocessing('files/dev.txt')
-    p.create_token_sentence()
+    p.create_token_sentence(train)
     p.create_prp_sentence()
     p.create_charniak()
     p.create_charniak_dep()
-    #p.creat_tok()
+    if args.mode == 'train':
+        p.creat_tok()
